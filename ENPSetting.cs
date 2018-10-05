@@ -61,8 +61,8 @@ public class ENPSetting : ScriptableObject
 	public string status = "E_CHAOS";
     }
     
-    public List<NetworkParams> paramList;
-    public HwInfo hwInfo;
+    public List<NetworkParams> paramList = new List<NetworkParams>();
+    public HwInfo hwInfo = new HwInfo();
 
     /// <summary>
     ///   プリセット名から定義済パラメータを選択して、制御パケットを送る 
