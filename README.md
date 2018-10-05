@@ -30,3 +30,5 @@ am.ENPSetting.Apply();
 
 でスクリプトから呼んでもよし。
 
+![Inspector](https://user-images.githubusercontent.com/1039507/46513995-3551c100-c896-11e8-98a0-4b65451b99bf.png)
+
