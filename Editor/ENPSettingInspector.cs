@@ -14,11 +14,11 @@ namespace am
 {
 
 [CustomEditor(typeof(ENPSetting))]
-public class ENPSettingInspector : InspectorBase<EMNPiSetting>
+public class ENPSettingInspector : InspectorBase<ENPSetting>
 {
     
     protected override void DrawCustomInspector(){
-	var so = target as EMNPiSetting;
+	var so = target as ENPSetting;
 
 	DrawSimpleLabelField("EM-uNetPi ハード情報", "", null, 200f);
 	DrawSimpleTextField(so, "制御IP", ref so.hwInfo.controlIp);
@@ -27,7 +27,7 @@ public class ENPSettingInspector : InspectorBase<EMNPiSetting>
 	GUILayout.Space(5);
 	GUILayout.Box(GUIContent.none, HrStyle.EditorLine, GUILayout.ExpandWidth(true), GUILayout.Height(1f));
 	GUILayout.Space(5);
-	DrawList<EMNPiSetting.NetworkParams>(so, so.paramList);
+	DrawList<ENPSetting.NetworkParams>(so, so.paramList);
     }
     
     public override void OnInspectorGUI()
@@ -36,8 +36,8 @@ public class ENPSettingInspector : InspectorBase<EMNPiSetting>
     }
 
     protected override void DrawListNode<NodeT>(NodeT nodeBase){
-	var so   = target as EMNPiSetting;
-	var node = nodeBase as EMNPiSetting.NetworkParams;
+	var so   = target as ENPSetting;
+	var node = nodeBase as ENPSetting.NetworkParams;
 
 	if(node.foldFlag = Foldout(node.foldFlag, node.name)){
 	    
