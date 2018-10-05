@@ -3,14 +3,17 @@ README
 
 Unityから「[EM-uNetPi](https://github.com/KONAMI/EM-uNetPi)」を制御するためのEditor拡張。
 
+Unity2017.3以降、Scripting Runtime Version : .NET4.x で動作を確認している。
+
 導入方法
 ------------------------------------------------------------
 
 Assets以下の適当なフォルダにぶち込めばOK。
 
-[EditorUtils](https://github.com/karinharp/EditorUtils)に依存しているので、こちらを先に導入しておくこと。
+なお、以下のパッケージに依存しているので、先に導入しておくこと。
 
-> ReleaseTabにおいてあるPackageには同梱してるので、そちらを使うなら一括導入OK
+- [karinharp/EditorUtils](https://github.com/karinharp/EditorUtils)
+- [neuecc/Utf8Json](https://github.com/neuecc/Utf8Json)
 
 使い方
 ------------------------------------------------------------
@@ -22,7 +25,7 @@ Assets以下の適当なフォルダにぶち込めばOK。
 設定値を定義して、ScriptableObjectのInspectorから設定してもよし、
 
 ```
-am.TNPSetting.Apply();
+am.ENPSetting.Apply();
 ```
 
 でスクリプトから呼んでもよし。
