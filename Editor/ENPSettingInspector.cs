@@ -23,6 +23,15 @@ public class ENPSettingInspector : InspectorBase<ENPSetting>
 	DrawSimpleLabelField("EM-uNetPi ハード情報", "", null, 200f);
 	DrawSimpleTextField(so, "制御IP", ref so.hwInfo.controlIp);
 	DrawSimpleIntField(so, "制御ポート", ref so.hwInfo.controlPort);
+
+	EditorGUILayout.BeginHorizontal();
+	{
+	    if(GUILayout.Button("Export", EditorStyles.miniButton)){
+		Debug.Log(so.ExportToJson());
+		so.Save("ENPSetting");
+	    }
+	}
+	EditorGUILayout.EndHorizontal();		
 	
 	GUILayout.Space(5);
 	GUILayout.Box(GUIContent.none, HrStyle.EditorLine, GUILayout.ExpandWidth(true), GUILayout.Height(1f));

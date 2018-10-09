@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization;
@@ -24,7 +25,7 @@ public class ENPSetting : ScriptableObject
 	public string controlIp   = "192.168.31.10";
 	public int    controlPort = 10393;
     }
-    
+
     [Serializable]
     public class NetworkParams {
 	public string name;
@@ -52,6 +53,7 @@ public class ENPSetting : ScriptableObject
 	[Range(0,1)]
 	[DataMember(Name = "disconnDw")]	
 	public int disconnDw = 0;
+
 	public bool foldFlag { get; set; }
     }
 
@@ -104,6 +106,50 @@ public class ENPSetting : ScriptableObject
 	return ret;
     }
 
+    /// <summary>
+    ///   Export to JsonString
+    /// </summary>
+    public string ExportToJson(){
+	return JsonSerializer.ToJsonString(paramList);
+    }
+
+    /// <summary>
+    ///   Import from JsonString
+    /// </summary>
+    public void ImportFromJson(string json){
+	paramList = JsonSerializer.Deserialize<List<NetworkParams>>(json);
+    }
+
+    void CreateParentDirectory(string itemPath){
+	var path = Path.GetDirectoryName(itemPath);
+	if(Directory.Exists(path)){ return; }
+	Directory.CreateDirectory(path);
+    }
+
+    string GetSavePath(string key){
+	var savePath = Application.persistentDataPath + Path.DirectorySeparatorChar;
+	savePath +=  key + ".json";
+	return savePath;
+    }
+
+    public async Task Save(string key){
+	var json = ExportToJson();
+	var savepath = GetSavePath(key);
+	CreateParentDirectory(savepath);
+	UnityEngine.Debug.Log("Save to : " + savepath);
+	using(var sw = new StreamWriter(savepath, false, Encoding.GetEncoding("utf-8"))){ await sw.WriteAsync(json); }
+    }
+
+    public async Task Load(string key){
+	var savepath = GetSavePath("ENPSetting");
+	if(File.Exists(savepath)){
+	    using(var sr = new StreamReader(savepath, Encoding.GetEncoding("utf-8"))){
+		string json = await sr.ReadToEndAsync();
+		ImportFromJson(json);
+	    }
+	}
+    }
+    
     
 }
 }
